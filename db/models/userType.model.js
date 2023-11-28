@@ -15,7 +15,7 @@ const UserTypeSchema = {
   },
   description: {
     allowNull: false,
-    type: DataTypes.STRING.length(512)
+    type: DataTypes.STRING
   }
 }
 

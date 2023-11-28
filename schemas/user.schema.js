@@ -4,7 +4,7 @@ const name = Joi.string();
 const lastname = Joi.string();
 const email = Joi.string().email();
 const password = Joi.string().min(8);
-const userType = Joi.integer();
+const userType = Joi.number().integer();
 const balance = Joi.number();
 const createUserSchema=Joi.object({
   email:email.required(),
