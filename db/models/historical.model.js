@@ -23,7 +23,16 @@ const HistoricalSchema = {
 }
 
 class Historical extends Model {
-  static associate(models) {console.log(models)}
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user'
+    })
+    this.belongsToMany(models.VideoGame, {
+      foreignKey:'game_id',
+      as: 'videoGame'
+    })
+  }
 
   static config(sequelize) {
     return {

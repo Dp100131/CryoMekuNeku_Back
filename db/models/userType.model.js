@@ -15,7 +15,11 @@ const UserTypeSchema = {
 
 class UserType extends Model {
 
-  static associate(models) {console.log(models)}
+  static associate(models) {
+  this.hasMany(models.User, {
+    foreignKey: "type_id"
+  });
+  }
 
   static config(sequelize) {
     return {

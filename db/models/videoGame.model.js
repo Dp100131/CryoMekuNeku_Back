@@ -30,7 +30,16 @@ const VideoGameSchema = {
 }
 
 class VideoGame extends Model {
-  static associate(models) {console.log(models)}
+  static associate(models) {
+    this.hasMany(models.Cart, {
+      as: 'Cart',
+      foreignKey: "game_id"
+    })
+    this.hasMany(models.Historical, {
+      as: 'Historical',
+      foreignKey: "game_id"
+    })
+  }
 
   static config(sequelize) {
     return {

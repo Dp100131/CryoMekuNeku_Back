@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+const { UserType } = require('./userType.model')
 
 const USER_TABLE = 'users';
 
@@ -24,15 +25,31 @@ const UserSchema = {
     allowNull: false,
   },
   type_id: {
-    type: DataTypes.INTEGER,
     allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: UserType,
+      key: 'type_id',
+    }
   }
 
 }
 
 class User extends Model {
-  static associate(models) {console.log(models)}
-
+  static associate(models) {
+    this.belongsTo(models.UserType, {
+      foreignKey: 'type_id',
+      as: 'userType'
+    })
+    this.hasOne(models.Cart, {
+      as: 'Cart',
+      foreignKey: "user_id"
+    })
+    this.hasOne(models.Historical, {
+      as: 'Historical',
+      foreignKey: "user_id"
+    })
+  }
   static config(sequelize) {
     return {
       sequelize,
