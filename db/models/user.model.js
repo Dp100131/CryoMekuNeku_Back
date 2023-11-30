@@ -31,7 +31,12 @@ const UserSchema = {
       model: UserType,
       key: 'type_id',
     }
-  }
+  },
+  recoveryToken: {
+    field: 'recovery_token',
+    allowNull: true,
+    type: DataTypes.STRING
+  },
 
 }
 
