@@ -17,9 +17,10 @@ const HistoricalSchema = {
     type: DataTypes.INTEGER,
     field: "game_id"
   },
-  purchase_date: {
+  purchaseDate: {
     type: DataTypes.DATE,
-    default: Sequelize.NOW
+    default: Sequelize.NOW,
+    field: "purchase_date"
   }
 
 }

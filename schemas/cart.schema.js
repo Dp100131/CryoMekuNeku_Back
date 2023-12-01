@@ -10,10 +10,20 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const userId = 
+const userId = Joi.number().integer();
+const gameId = Joi.number().integer();
 
-const createUserTypeSchema = Joi.object();
-const updateUserTypeSchema = Joi.object()
-const getUserTypeSchema = Joi.object()
+const createCartSchema = Joi.object({
+  userId: userId.required(),
+  gameId: gameId.required()
+});
+const updateCartSchema = Joi.object({
+  id: id.required(),
+  userId: userId,
+  gameId: gameId
+})
+const getCartSchema = Joi.object({
+  id: id.required()
+})
 
-module.exports = { createUserTypeSchema, updateUserTypeSchema, getUserTypeSchema}
+module.exports = { createCartSchema, updateCartSchema, getCartSchema}
