@@ -3,10 +3,11 @@ const { Model, DataTypes } = require('sequelize');
 const USER_TYPE_TABLE = 'user_type';
 
 const UserTypeSchema = {
-  type_id: {
+  typeId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: "type_id"
   },
   description: {
     type: DataTypes.TEXT,
@@ -17,7 +18,7 @@ class UserType extends Model {
 
   static associate(models) {
   this.hasMany(models.User, {
-    foreignKey: "type_id"
+    foreignKey: "typeId"
   });
   }
 

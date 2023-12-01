@@ -3,13 +3,15 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 const VIDEO_GAME_TABLE = 'videogame';
 
 const VideoGameSchema = {
-  game_id: {
+  gameId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: "game_id"
   },
-  game_name: {
+  gameName: {
     type: DataTypes.STRING(50),
+    field: "game_name"
   },
   score: {
     type: DataTypes.FLOAT,
@@ -33,11 +35,11 @@ class VideoGame extends Model {
   static associate(models) {
     this.hasMany(models.Cart, {
       as: 'Cart',
-      foreignKey: "game_id"
+      foreignKey: "gameId"
     })
     this.hasMany(models.Historical, {
       as: 'Historical',
-      foreignKey: "game_id"
+      foreignKey: "gameId"
     })
   }
 

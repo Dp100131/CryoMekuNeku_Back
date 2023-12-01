@@ -9,11 +9,13 @@ const HistoricalSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
+    field: "user_id"
   },
-  game_id: {
+  gameId: {
     type: DataTypes.INTEGER,
+    field: "game_id"
   },
   purchase_date: {
     type: DataTypes.DATE,
@@ -25,11 +27,11 @@ const HistoricalSchema = {
 class Historical extends Model {
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'user'
     })
     this.belongsToMany(models.VideoGame, {
-      foreignKey:'game_id',
+      foreignKey:'gameId',
       as: 'videoGame'
     })
   }

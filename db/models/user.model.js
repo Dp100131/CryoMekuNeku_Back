@@ -5,31 +5,36 @@ const USER_TABLE = 'users';
 
 const UserSchema = {
 
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: "user_id"
   },
-  user_name: {
+  userName: {
     type: DataTypes.STRING(100),
+    field: "user_name"
   },
-  user_lastname: {
+  userLastName: {
     type: DataTypes.STRING(100),
+    field: "user_lastname"
   },
   email: {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
-  user_password: {
+  userPassword: {
     type: DataTypes.STRING(200),
     allowNull: false,
+    field: "user_password"
   },
-  type_id: {
+  typeId: {
     allowNull: false,
     type: DataTypes.INTEGER,
+    field: "type_id",
     references: {
       model: UserType,
-      key: 'type_id',
+      key: 'typeId',
     }
   },
   recoveryToken: {
@@ -43,16 +48,16 @@ const UserSchema = {
 class User extends Model {
   static associate(models) {
     this.belongsTo(models.UserType, {
-      foreignKey: 'type_id',
+      foreignKey: 'typeId',
       as: 'userType'
     })
     this.hasOne(models.Cart, {
       as: 'Cart',
-      foreignKey: "user_id"
+      foreignKey: "userId"
     })
     this.hasOne(models.Historical, {
       as: 'Historical',
-      foreignKey: "user_id"
+      foreignKey: "userId"
     })
   }
   static config(sequelize) {

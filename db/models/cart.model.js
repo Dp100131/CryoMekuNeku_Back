@@ -11,20 +11,22 @@ const CartSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: "user_id",
     references: {
       model: User,
-      key: 'user_id',
+      key: 'userId',
     }
   },
-  game_id: {
+  gameId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: "game_id",
     references: {
       model: VideoGame,
-      key: 'game_id',
+      key: 'gameId',
     }
   }
 }
@@ -32,11 +34,11 @@ const CartSchema = {
 class Cart extends Model {
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'user'
     })
     this.belongsToMany(models.VideoGame, {
-      foreignKey:'game_id',
+      foreignKey:'gameId',
       as: 'videoGame'
     })
   }
