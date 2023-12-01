@@ -2,8 +2,9 @@ const cors = require("cors");
 const express = require("express");
 const routerApi = require("./Routes");
 const { errorHandler } = require("./Middlewares/error.handler");
+const { config } = require('./config/config')
 const app = express();
-const port ='3000'
+const port =config.port
 app.set('PORT', port)
 
 app.use(express.json());
