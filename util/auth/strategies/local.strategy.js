@@ -1,11 +1,11 @@
-/* const { Strategy } = require('passport-local');
+const { Strategy } = require('passport-local');
 const boom = require('@hapi/boom');
-const {comparePassword} = require('./../../security/password.hash'); */
+const {comparePassword} = require('./../../security/password.security');
 
-/* const UserService = require('./../../../services/user.service'); */ // TODO: UserService.
-/* const service = new UserService(); */
+const UserService = require('./../../../services/user.service.js');
+const service = new UserService();
 
-/* const LocalStrategy = new Strategy({
+const LocalStrategy = new Strategy({
   usernameField: 'email',
   },
   async (email, password, done) => {
@@ -25,4 +25,4 @@ const {comparePassword} = require('./../../security/password.hash'); */
   }
 });
 
-module.exports = LocalStrategy; */
+module.exports = LocalStrategy;

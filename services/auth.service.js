@@ -6,7 +6,7 @@ const { signJwt, verifyJwt } = require('../util/security/jwt.security.js');
 
 const { config } = require('../config/config.js');
 
-const UserService = require('./auth.service.js');
+const UserService = require('./user.service.js');
 const service = new UserService();
 
 class AuthService {
