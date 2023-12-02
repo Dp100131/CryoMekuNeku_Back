@@ -4,7 +4,7 @@ const passport = require('passport');
 const CartService = require('./../services/cart.service');
 const validatorHandler = require('./../Middlewares/validator.handler');
 const { checkRoles } = require('./../Middlewares/auth.handler');
-const { createCartSchema, getCartSchema, updateCartSchema, deleteCartSchema } = require('./../schemas/cart.schema');
+const { createCartSchema, getCartSchema, deleteCartSchema } = require('./../schemas/cart.schema');
 
 const router = express.Router();
 const service = new CartService();
@@ -44,7 +44,7 @@ router.post('/',
       next(error);
     }
   }
-); 
+);
 
 router.delete('/delete',
   passport.authenticate('jwt', {session: false}),
