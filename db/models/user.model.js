@@ -51,11 +51,11 @@ class User extends Model {
       foreignKey: 'typeId',
       as: 'userType'
     })
-    this.hasOne(models.Cart, {
+    this.hasMany(models.Cart, {
       as: 'Cart',
       foreignKey: "userId"
     })
-    this.hasOne(models.Historical, {
+    this.hasMany(models.Historical, {
       as: 'Historical',
       foreignKey: "userId"
     })

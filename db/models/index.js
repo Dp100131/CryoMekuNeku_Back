@@ -11,10 +11,9 @@ function setupModels(sequelize) {
   User.init(UserSchema, User.config(sequelize));
   Cart.init(CartSchema, Cart.config(sequelize));
   Historical.init(HistoricalSchema, Historical.config(sequelize));
-
-  UserType.associate(sequelize.models);
+  
   VideoGame.associate(sequelize.models);
-  User.associate(sequelize.models); 
+  User.associate(sequelize.models);
 }
 
 module.exports = { setupModels };

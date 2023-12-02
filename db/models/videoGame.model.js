@@ -23,7 +23,7 @@ const VideoGameSchema = {
   price: {
     type: DataTypes.FLOAT,
   },
-  URL: {
+  url: {
     type: DataTypes.TEXT,
   },
   description: {

@@ -7,7 +7,8 @@ const UserTypeSchema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: "type_id"
+    field: "type_id",
+    allowNull: true,
   },
   description: {
     type: DataTypes.TEXT,
@@ -15,12 +16,6 @@ const UserTypeSchema = {
 };
 
 class UserType extends Model {
-
-  static associate(models) {
-  this.hasMany(models.User, {
-    foreignKey: "typeId"
-  });
-  }
 
   static config(sequelize) {
     return {
