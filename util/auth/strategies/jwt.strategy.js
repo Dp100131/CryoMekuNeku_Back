@@ -7,7 +7,7 @@ const options = {
   secretOrKey: config.jwtSecret
 }
 
-const JwtStrategy = new Strategy(options, (payload, done) => {
+const JwtStrategy = new Strategy(options, (payload, done) => {   
   return done(null, payload);
 });
 

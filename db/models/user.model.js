@@ -42,6 +42,11 @@ const UserSchema = {
     allowNull: true,
     type: DataTypes.STRING
   },
+  balance: {
+    allowNull: false,
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0
+  },
 
 }
 

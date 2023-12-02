@@ -25,6 +25,7 @@ const email = Joi.string().email().max(200);
 const userPassword = Joi.string().email().max(200);
 const typeId = Joi.number().integer();
 const recoveryToken = Joi.string();
+const balance = Joi.number();
 
 const createUserSchema = Joi.object({
   userName: userName.required(),
@@ -38,7 +39,7 @@ const updateUserSchema = Joi.object({
   userName: userName,
   userLastName: userLastName,
   email: email,
-  userPassword: userPassword
+  balance:balance
 })
 const getUserSchema = Joi.object({
   userId: userId.required()
