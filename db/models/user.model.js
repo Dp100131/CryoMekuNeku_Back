@@ -23,7 +23,7 @@ const UserSchema = {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
-  userPassword: {
+  password: {
     type: DataTypes.STRING(200),
     allowNull: false,
     field: "user_password"

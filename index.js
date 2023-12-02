@@ -14,6 +14,10 @@ require('./util/auth');
 
 routerApi(app);
 
+app.get('/hola', (req, res) => {
+  res.send('Hello world');
+})
+
 app.use(errorHandler);
 
 app.listen(port, () => {

@@ -27,7 +27,7 @@ const description = Joi.string();
 const createVideoGameSchema = Joi.object({
   gameName: gameName.required(),
   score: score.required(),
-  realiseDate: realiseDate.required(),
+  realiseDate: realiseDate,
   price: price.required(),
   description: description.required()
 });

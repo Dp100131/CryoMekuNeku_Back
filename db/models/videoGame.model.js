@@ -18,7 +18,8 @@ const VideoGameSchema = {
   },
   realiseDate: {
     type: DataTypes.DATE,
-    default: Sequelize.NOW
+    default: Sequelize.NOW,
+    field: "realisedate"
   },
   price: {
     type: DataTypes.FLOAT,

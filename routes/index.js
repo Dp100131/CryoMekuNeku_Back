@@ -8,7 +8,7 @@ const authRouter = require('./auth.router');
 
 function routerApi(app) {
   const router = express.Router();
-  app.use('/api/v1', router);
+  app.use(router);
   app.use('/user', userRouter);
   app.use('/videoGame', videoGameRouter);
   app.use('/historical', historicalRouter);

@@ -1,15 +1,14 @@
 const express = require('express');
-
 const VideoGameService = require('./../services/videoGame.service');
 const validatorHandler = require('./../Middlewares/validator.handler');
 const { checkRoles } = require('./../Middlewares/auth.handler');
 const { createVideoGameSchema, getVideoGameSchema, updateVideoGameSchema } = require('./../schemas/videoGame.schema');
+const passport = require('passport');
 
 const router = express.Router();
 const service = new VideoGameService();
 
-router.get('/'
-  , async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await service.find();
     res.json(users);
@@ -18,12 +17,12 @@ router.get('/'
   }
 });
 
-router.get('/:id',
+router.get('/:gameId',
   validatorHandler(getVideoGameSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const user = await service.findOne(id);
+      const { gameId } = req.params;
+      const user = await service.findOne(gameId);
       res.json(user);
     } catch (error) {
       next(error);
@@ -32,6 +31,7 @@ router.get('/:id',
 );
 
 router.post('/',
+  passport.authenticate('jwt', {session: false}),
   checkRoles(1),
   validatorHandler(createVideoGameSchema, 'body'),
   async (req, res, next) => {
@@ -61,6 +61,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
   checkRoles(1),
   validatorHandler(getVideoGameSchema, 'params'),
   async (req, res, next) => {
