@@ -27,7 +27,7 @@ const updateHistoricalSchema = Joi.object({
   gameId: gameId
 })
 const getHistoricalSchema = Joi.object({
-  id: id.required()
+  userId: userId.required()
 })
 
 module.exports = { createHistoricalSchema, updateHistoricalSchema, getHistoricalSchema}

@@ -23,7 +23,7 @@ const updateCartSchema = Joi.object({
   gameId: gameId
 })
 const getCartSchema = Joi.object({
-  id: id.required()
+  userId: userId.required()
 })
 
 module.exports = { createCartSchema, updateCartSchema, getCartSchema}

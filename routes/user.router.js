@@ -1,13 +1,19 @@
 const express = require('express');
+const passport = require('passport');
+const boom = require('@hapi/boom');
 
 const UserService = require('./../services/user.service');
-const validatorHandler = require('./../middlewares/validator.handler');
-const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/user.schema');
+const validatorHandler = require('./../Middlewares/validator.handler');
+const { checkRoles } = require('./../Middlewares/auth.handler');
+const { createUserSchema, getUserSchema } = require('./../schemas/user.schema');
 
 const router = express.Router();
 const service = new UserService();
 
-router.get('/', async (req, res, next) => {
+router.get('/',
+  passport.authenticate('jwt', {session: false}),
+  checkRoles(1),
+  async (req, res, next) => {
   try {
     const users = await service.find();
     res.json(users);
@@ -17,12 +23,18 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
+
       const { id } = req.params;
-      const category = await service.findOne(id);
-      res.json(category);
+      if(id == req.user.userId){
+        const user = await service.findOne(id);
+        res.json(user);
+      }else{
+        throw boom.unauthorized();
+      }
     } catch (error) {
       next(error);
     }
@@ -34,23 +46,8 @@ router.post('/',
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newCategory = await service.create(body);
-      res.status(201).json(newCategory);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-router.patch('/:id',
-  validatorHandler(getUserSchema, 'params'),
-  validatorHandler(updateUserSchema, 'body'),
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const body = req.body;
-      const category = await service.update(id, body);
-      res.json(category);
+      const newUser = await service.create(body);
+      res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }
@@ -58,6 +55,8 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
+  checkRoles(1, 2),
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
