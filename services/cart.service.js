@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models } = require('./../libs/sequelize');
+const { models } = require('./../Lib/sequelize');
 
 class CartService {
 
@@ -27,13 +27,18 @@ class CartService {
     return products;
   }
 
-  async delete(id) {
-    const product = await models.Cart.findByPk(id);
+  async delete(data) {
+    const product = await models.Cart.findByPk({
+      where:{
+        userId: data.userId,
+        gameId: data.gameId
+      }
+    });
     if (!product) {
       throw boom.notFound('Product not found');
     }
     await product.destroy();
-    return { id };
+    return { ...data };
   }
 
 }

@@ -45,7 +45,7 @@ const getUserSchema = Joi.object({
 })
 const passwordUserSchema = Joi.object({
   userId: userId.required(),
-  recoveryToken: recoveryToken.require()
+  recoveryToken: recoveryToken.required()
 })
 
 module.exports = { createUserSchema, updateUserSchema, getUserSchema, passwordUserSchema}

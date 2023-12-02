@@ -33,13 +33,15 @@ const VideoGameSchema = {
 
 class VideoGame extends Model {
   static associate(models) {
-    this.hasMany(models.Cart, {
-      as: 'Cart',
-      foreignKey: "gameId"
+    this.belongsToMany(models.User, {
+      through: models.Cart,
+      foreignKey:'gameId',
+      otherKey:'userId'
     })
-    this.hasMany(models.Historical, {
-      as: 'Historical',
-      foreignKey: "gameId"
+    this.belongsToMany(models.User, {
+      through: models.Historical,
+      foreignKey:'gameId',
+      otherKey:'userId'
     })
   }
 

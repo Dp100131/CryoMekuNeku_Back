@@ -1,10 +1,10 @@
 const express = require("express");
 
-const userRouter = require('./products.router');
-const videoGameRouter = require('./categories.router');
-const historicalRouter = require('./users.router');
-const cartRouter = require('./orders.router');
-const authRouter = require('./customers.router');
+const userRouter = require('./user.router');
+const videoGameRouter = require('./videoGame.router');
+const historicalRouter = require('./historical.router');
+const cartRouter = require('./cart.router');
+const authRouter = require('./auth.router');
 
 function routerApi(app) {
   const router = express.Router();

@@ -31,18 +31,7 @@ const CartSchema = {
   }
 }
 
-class Cart extends Model {
-  static associate(models) {
-    this.belongsTo(models.User, {
-      foreignKey: 'userId',
-      as: 'user'
-    })
-    this.belongsToMany(models.VideoGame, {
-      foreignKey:'gameId',
-      as: 'videoGame'
-    })
-  }
-
+class Cart extends Model {  
   static config(sequelize) {
     return {
       sequelize,

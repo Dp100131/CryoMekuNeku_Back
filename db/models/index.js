@@ -14,9 +14,7 @@ function setupModels(sequelize) {
 
   UserType.associate(sequelize.models);
   VideoGame.associate(sequelize.models);
-  User.associate(sequelize.models);
-  Cart.associate(sequelize.models);
-  Historical.associate(sequelize.models);
+  User.associate(sequelize.models); 
 }
 
 module.exports = { setupModels };
