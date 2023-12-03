@@ -2,8 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const CartService = require('./../services/cart.service');
-const validatorHandler = require('./../Middlewares/validator.handler');
-const { checkRoles } = require('./../Middlewares/auth.handler');
+const validatorHandler = require('./../Middlewares/validator.handler'); 
 const { createCartSchema, getCartSchema, deleteCartSchema } = require('./../schemas/cart.schema');
 
 const router = express.Router();
@@ -18,12 +17,12 @@ router.get('/'
   }
 });
 
-router.get('/:id',
+router.get('/:userId',
   validatorHandler(getCartSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const user = await service.findByUser(id);
+      const { userId } = req.params;
+      const user = await service.findByUser(userId);
       res.json(user);
     } catch (error) {
       next(error);
@@ -32,8 +31,7 @@ router.get('/:id',
 );
 
 router.post('/',
-  passport.authenticate('jwt', {session: false}),
-  checkRoles(1),
+  passport.authenticate('jwt', {session: false}), 
   validatorHandler(createCartSchema, 'body'),
   async (req, res, next) => {
     try {

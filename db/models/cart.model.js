@@ -32,6 +32,12 @@ const CartSchema = {
 }
 
 class Cart extends Model {  
+  static associate(models){
+    this.hasMany(models.VideoGame,{
+      as: 'videoGames',
+      foreignKey: 'gameId'
+    })
+  }
   static config(sequelize) {
     return {
       sequelize,

@@ -43,7 +43,7 @@ class VideoGame extends Model {
       through: models.Historical,
       foreignKey:'gameId',
       otherKey:'userId'
-    })
+    }) 
   }
 
   static config(sequelize) {

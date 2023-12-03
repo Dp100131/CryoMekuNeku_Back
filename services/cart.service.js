@@ -1,5 +1,5 @@
-const boom = require('@hapi/boom');
-const { models } = require('./../Lib/sequelize');
+const boom = require('@hapi/boom'); 
+const { models }  = require('./../Lib/sequelize');
 
 class CartService {
 
@@ -14,17 +14,15 @@ class CartService {
   }
 
   async findByUser(userId) {
-    const products = await models.Cart.findAll({
+    //const query = `SELECT cart.*, videogame.* FROM cart JOIN videogame ON cart.game_Id = videogame.game_id WHERE cart.user_Id = ${userId}`
+    //const videoGames = await sequelize.query(query);
+    const videoGames = await models.Cart.findAll({
       where:{
         userId: userId
       },
-      include:[
-        {
-          include: ['VideoGame'],
-        }
-      ]
+      include: ['videoGames']
     })
-    return products;
+    return videoGames;
   }
 
   async delete(data) {

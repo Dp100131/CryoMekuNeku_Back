@@ -13,6 +13,7 @@ function setupModels(sequelize) {
   Historical.init(HistoricalSchema, Historical.config(sequelize));
   
   VideoGame.associate(sequelize.models);
+  Cart.associate(sequelize.models);
   User.associate(sequelize.models);
 }
 
