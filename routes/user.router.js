@@ -18,7 +18,7 @@ router.get('/',
     const users = await service.find();
     for (let i = 0; i < users.length; i++) {
       delete users[i].dataValues.password;
-      delete users[i].dataValues.recoveryToken;  
+      delete users[i].dataValues.recoveryToken;
     }
     res.json(users);
   } catch (error) {
@@ -51,7 +51,10 @@ router.post('/',
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
+      const body = {
+        ...req.body,
+        typeId: 2
+      };
       const newUser = await service.create(body);
       delete newUser.dataValues.password;
       delete newUser.dataValues.recoveryToken;
@@ -69,7 +72,7 @@ router.patch('/:userId',
   async (req, res, next) => {
     try {
       const { userId } = req.params;
-      const body = req.body; 
+      const body = req.body;
       const userUpdate = await service.update(userId, body);
       delete userUpdate.dataValues.password;
       delete userUpdate.dataValues.recoveryToken;
