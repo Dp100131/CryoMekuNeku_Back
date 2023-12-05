@@ -28,7 +28,7 @@ class AuthService {
     const payload = {
       sub: user.userId,
       typeId: user.typeId
-    } 
+    }
     const token = signJwt(payload, config.jwtSecret);
     return {
       user,
@@ -56,10 +56,11 @@ class AuthService {
     if (!user) {
       throw boom.unauthorized();
     }
-    const payload = { sub: user.id };
-    const token = signJwt(payload, config.tokenSecret, {expiresIn: '15min'});
-    const link = ` http://localhost:3000/recovery?token=${token}`;
-    await service.update(user.id, {recoveryToken: token});
+    const payload = { sub: user.userId };
+
+    const token = signJwt(payload, config.jwtSecret, {expiresIn: '15min'});
+    const link = ` http://localhost:3000/recovery/${token}`;
+    await service.update(user.userId, {recoveryToken: token});
     const info = {
       from: '"cryomekuneku👻" <cryomekuneku@cryomekuneku.com>',
       to: `${user.email}`,

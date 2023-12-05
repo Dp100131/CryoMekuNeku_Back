@@ -40,12 +40,12 @@ class UserService {
     return user;
   }
 
-  async update(userId, changes) {
+  async update(userId, changes) { 
     const user = await models.User.findByPk(userId);
     if (!user) {
       throw boom.notFound('User not found');
     }
-    if(changes.balance){ 
+    if(changes.balance){
       const balanceW = changes.balance + user.balance;
       changes = { balance: balanceW};
     }
