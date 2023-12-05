@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const CartService = require('./../services/cart.service');
-const validatorHandler = require('./../Middlewares/validator.handler'); 
+const validatorHandler = require('./../Middlewares/validator.handler');
 const { createCartSchema, getCartSchema, deleteCartSchema } = require('./../schemas/cart.schema');
 
 const router = express.Router();
@@ -31,7 +31,7 @@ router.get('/:userId',
 );
 
 router.post('/',
-  passport.authenticate('jwt', {session: false}), 
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createCartSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -44,14 +44,13 @@ router.post('/',
   }
 );
 
-router.delete('/delete',
-  passport.authenticate('jwt', {session: false}),
-  validatorHandler(deleteCartSchema, 'body'),
+router.delete('/:id', 
+  validatorHandler(deleteCartSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       await service.delete(id);
-      res.status(201).json({id});
+      res.status(201).json(id);
     } catch (error) {
       next(error);
     }

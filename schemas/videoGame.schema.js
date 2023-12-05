@@ -29,15 +29,16 @@ const createVideoGameSchema = Joi.object({
   score: score.required(),
   realiseDate: realiseDate,
   price: price.required(),
-  description: description.required()
+  url: URL.required(),
+  description: description
+
 });
 const updateVideoGameSchema = Joi.object({
-  gameId: gameId.required(),
   gameName: gameName,
   score: score,
   realiseDate: realiseDate,
   price: price,
-  URL: URL,
+  url: URL,
   description: description
 })
 const getVideoGameSchema = Joi.object({

@@ -1,8 +1,10 @@
 const express = require('express');
+const multer = require('multer')
+const path = require('path')
 const VideoGameService = require('./../services/videoGame.service');
 const validatorHandler = require('./../Middlewares/validator.handler');
 const { checkRoles } = require('./../Middlewares/auth.handler');
-const { createVideoGameSchema, getVideoGameSchema, updateVideoGameSchema } = require('./../schemas/videoGame.schema');
+const { getVideoGameSchema, updateVideoGameSchema } = require('./../schemas/videoGame.schema');
 const passport = require('passport');
 
 const router = express.Router();
@@ -29,30 +31,49 @@ router.get('/:gameId',
     }
   }
 );
+// Configura Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images'); // Ruta donde se guardarán las imágenes
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+  }
+});
 
-router.post('/',
+const upload = multer({ storage: storage });
+
+router.post('/upload',
   passport.authenticate('jwt', {session: false}),
   checkRoles(1),
-  validatorHandler(createVideoGameSchema, 'body'),
+  upload.single('file'),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      const newUser = await service.create(body);
-      res.status(201).json(newUser);
+      const imageUrl = `http://localhost:4200/images/${req.file.filename}`;
+      const data = {
+        gameName: req.body.name,
+        description: req.body.description,
+        url: imageUrl,
+        price: req.body.price,
+      }
+      const newGame = await service.create(data);
+      res.status(201).json(newGame);
     } catch (error) {
-      next(error);
+      next(error)
     }
   }
 );
 
-router.patch('/:id',
+router.patch('/:gameId',
   validatorHandler(getVideoGameSchema, 'params'),
   validatorHandler(updateVideoGameSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { gameId } = req.params;
       const body = req.body;
-      const videoGame = await service.update(id, body);
+      const videoGame = await service.update(gameId, body);
       res.json(videoGame);
     } catch (error) {
       next(error);

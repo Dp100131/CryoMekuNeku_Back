@@ -27,8 +27,7 @@ const getCartSchema = Joi.object({
 })
 
 const deleteCartSchema = Joi.object({
-  userId: userId.required(),
-  gameId: gameId.required()
+  id: userId.required() 
 });
 
 module.exports = { createCartSchema, updateCartSchema, getCartSchema, deleteCartSchema}

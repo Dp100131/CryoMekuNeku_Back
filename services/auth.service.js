@@ -41,10 +41,11 @@ class AuthService {
       const payload = verifyJwt(token, config.jwtSecret);
       const user = await service.findOne(payload.sub);
       if (user.recoveryToken !== token) {
+        console.log("Entro acá");
         throw boom.unauthorized();
       }
       const hash = await hashPassword(newPassword, 10);
-      await service.update(user.id, {recoveryToken: null, password: hash});
+      await service.update(user.userId, {recoveryToken: null, password: hash});
       return { message: 'password changed' };
     } catch (error) {
       throw boom.unauthorized();
